@@ -1,11 +1,16 @@
+from sklearn.ensemble import IsolationForest
 import PySimpleGUI as sg
 import pandas as pd
 import csv
 # Define the window's contents
-layout = [[sg.Text("Please enter the record ID for which you would like to make a prediction")],
-          [sg.Input(key='-INPUT-')],
-          [sg.Text(size=(40,1), key='-OUTPUT-')],
-          [sg.Button('Ok'), sg.Button('Quit')]]
+layout = [[sg.Text("Please enter the duration_: ")],
+        [sg.Input(key='-INPUT1-')],
+        [sg.Text("Please enter the src_bytes: ")],
+        [sg.Input(key='-INPUT2-')],
+        [sg.Text("Please enter the dst_bytes: ")],
+        [sg.Input(key='-INPUT3-')],
+        [sg.Text(size=(40,1), key='-OUTPUT-')],
+        [sg.Button('Predict'), sg.Button('Quit')]]
 
 # Create the window
 window = sg.Window('Anomaly Detection', layout)
@@ -16,23 +21,30 @@ while True:
     # See if user wants to quit or window was closed
     if event == sg.WINDOW_CLOSED or event == 'Quit':
         break
-    if int(values['-INPUT-']) > 256670 or int(values['-INPUT-'])<0:
+    if int(values['-INPUT1-']) > 256670 or int(values['-INPUT1-'])<0:
         window['-OUTPUT-'].update("Error: Please enter a number in the range [0-256670]", background_color='white',
                                   text_color='red')
-    file = open("results.csv", "r")
-    read_file = csv.reader(file)
+    df = pd.read_csv("conn_attack.csv", names=[ "duration_", "src_bytes", "dst_bytes"], header=None)
+    df
+    new_row = {'duration_': values['-INPUT1-'], 'src_bytes': values['-INPUT2-'], 'dst_bytes': values['-INPUT3-']}
 
-    # loop through the csv list
-    for s in read_file:
-        if s[0] == values['-INPUT-'] :
-            if s[1]== str(1):
-                window['-OUTPUT-'].update("Anomalous point", background_color='white',
+    # append row to the dataframe
+    df= df.append(new_row, ignore_index=True)
+    input_attributes = df[["duration_", "src_bytes", "dst_bytes"]]
+    isolation_forest = IsolationForest(contamination=0.05, n_estimators=100)
+    isolation_forest.fit(input_attributes.values)
+    df["anomaly"] = pd.Series(isolation_forest.predict(input_attributes.values))
+    df["anomaly"] = df["anomaly"].map({1: 0, -1: 1})
+    # print(df["anomaly"].value_counts())
+    print(df.tail())
+    if df['anomaly'].iloc[-1]== 1:
+            window['-OUTPUT-'].update("Anomalous point", background_color='white',
                               text_color='red')
-            elif s[1] == str(0):
+    elif df['anomaly'].iloc[-1] == 0:
                 window['-OUTPUT-'].update("Not an anomalous point", background_color='white',
                               text_color='green')
 
-    file.close()
+    # file.close()
 
 
 # Finish up by removing from the screen
