@@ -14,3 +14,9 @@ To run the app: streamlit run app.py
 ![anomaly](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/anomaly.png)
 
 ![not anomaly](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/not%20anomaly.png)
+
+### To run with docker:
+1) Building a Docker image:
+docker build -t streamlitapp:latest .
+2) Creating a container:
+docker run -p 8501:8501 streamlitapp:latest
