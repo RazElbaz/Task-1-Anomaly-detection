@@ -1,0 +1,5 @@
+joblib
+sklearn.ensemble import IsolationForest
+pandas
+streamlit
+PIL
