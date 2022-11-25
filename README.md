@@ -24,12 +24,12 @@ docker run -p 8501:8501 streamlitapp:latest
 
 ### Docker build:
 
-![docker_build]([https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/docker_build.png))
+![dockerbuild]([https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/docker_build.png))
 
 ### Docker run:
 
-![docker_run]([https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/docker_run.png))
+![dockerrun]([https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/docker_run.png))
 
 ### The app: 
 
-![docker_app]([https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/docker_app.png))
+![dockerapp]([https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/docker_app.png))
